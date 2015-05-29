@@ -5,9 +5,16 @@ class window.Hand extends Backbone.Collection
 
   hit: ->
     @add(@deck.pop())
+    @checkScore()
+    return
+
+
+
+
+
 
   hasAce: -> @reduce (memo, card) ->
-    memo or card.get('value') is 1
+    memo or card.get('value') is 1 and card.get 'revealed'
   , 0
 
   # minScore: -> @reduce (score, card) ->
@@ -18,8 +25,8 @@ class window.Hand extends Backbone.Collection
     minScore = @reduce (score, card) ->
       score + if card.get 'revealed' then card.get 'value' else 0
     , 0
-
-    if @hasAce and minScore <= 11
+    console.log @hasAce()
+    if @hasAce() and minScore <= 11
       return minScore + 10
 
     return minScore
@@ -33,5 +40,8 @@ class window.Hand extends Backbone.Collection
     # [@minScore(), @minScore() + 10 * @hasAce()]
     @maxScore()
 
-
-
+  checkScore: ->
+    if @maxScore() > 21
+        Backbone.trigger 'busted', @
+        console.log "YOU BUSTED"
+    return

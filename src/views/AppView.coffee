@@ -10,7 +10,9 @@ class window.AppView extends Backbone.View
     'click .stand-button': -> @model.get('playerHand').stand()
 
   initialize: ->
+    @listenTo Backbone, 'busted', @render
     @render()
+
 
   render: ->
     @$el.children().detach()

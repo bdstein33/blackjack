@@ -16,8 +16,8 @@
 
 - Logic
  Facedown card --> faceDown attribute on Card (only faceDown for dealer first card)
- 
- Ace logic
+
+ [X] Ace logic
   Default value is 11, if hand.value > 21, first ace with value 11 is changed to 1
 
 - Actions
