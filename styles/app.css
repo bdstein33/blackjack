@@ -1,3 +1,36 @@
+body {
+  background-color: #006400;
+  color: white;
+  font-family: Arial;
+  font-weight: 300;
+}
+
+#title {
+  text-align: center;
+}
+
+.game-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+}
+
+.button {
+  width: 100px;
+  height: 40px;
+  outline: none;
+  color: black;
+  border: none;
+  background-color: white;
+  border-radius: 5px;
+
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: #E8E8E8;
+}
+
 .card {
   float: left;
   border: solid 1px black;
@@ -5,6 +38,10 @@
   border-radius: 5px;
   height: 140px;
   margin-right: 20px;
+}
+img {
+  width: 100px;
+  height: 140px;
 }
 
 .covered {
