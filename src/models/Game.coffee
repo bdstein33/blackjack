@@ -7,8 +7,14 @@ class window.Game extends Backbone.Model
     return
 
   startNewGame: ->
-    console.log "Game model method startNewGame"
     @set 'deck', deck = new Deck()
     @set 'playerHand', deck.dealPlayer(model: @model)
     @set 'dealerHand', deck.dealDealer(model: @model)
     return
+
+  stand: ->
+    playerHand = @get 'playerHand'
+    dealerHand = @get 'dealerHand'
+    dealerHand.models[0].flip()
+
+
