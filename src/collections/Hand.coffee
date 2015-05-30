@@ -4,14 +4,10 @@ class window.Hand extends Backbone.Collection
   initialize: (array, @deck, @isDealer) ->
 
   hit: ->
-    @add(@deck.pop())
+    # console.log("handcollection hit")
+    @add(@deck.shift())
     @checkScore()
     return
-
-
-
-
-
 
   hasAce: -> @reduce (memo, card) ->
     memo or card.get('value') is 1 and card.get 'revealed'
@@ -25,7 +21,7 @@ class window.Hand extends Backbone.Collection
     minScore = @reduce (score, card) ->
       score + if card.get 'revealed' then card.get 'value' else 0
     , 0
-    console.log @hasAce()
+
     if @hasAce() and minScore <= 11
       return minScore + 10
 
