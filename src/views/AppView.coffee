@@ -4,7 +4,6 @@ class window.AppView extends Backbone.View
     <button class="hit-button button">Hit</button> <button class="stand-button button">Stand</button> <button class="new-game-button button">New Game</button>
     <div class="player-hand-container"></div>
     <div class="dealer-hand-container"></div>
-    <div class="game-info-container"></div>
   '
 
   events:
@@ -14,14 +13,15 @@ class window.AppView extends Backbone.View
     # 'click .stand-button': -> Backbone.trigger 'stand', @
 
   initialize: ->
-    @listenTo Backbone, 'busted gameOver', @render
+    @listenTo Backbone, 'gameOver', @render
+    @$el.html @template()
     @render()
-
+    # @$('.game-info-container').html new InfoView(model: @model.get('game').get('info')).el
+    @$el.append new InfoView(model: @model.get('game').get('info')).el
 
   render: ->
-    @$el.children().detach()
-    @$el.html @template()
     @$('.player-hand-container').html new HandView(collection: @model.get('game').get('playerHand')).el
     @$('.dealer-hand-container').html new HandView(collection: @model.get('game').get('dealerHand')).el
-    @$('.game-info-container').html new InfoView(model: @model.get('game').get('info')).el
+
+
     return

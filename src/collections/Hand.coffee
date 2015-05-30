@@ -4,9 +4,18 @@ class window.Hand extends Backbone.Collection
   initialize: (array, @deck, @isDealer) ->
 
   hit: ->
-    # console.log("handcollection hit")
+
+    if @isDealer
+      Backbone.trigger 'dealerHit'
+      console.log ('hand transmit dealerHit')
+    else
+      Backbone.trigger 'playerHit'
+      console.log ('hand transmit playerHit')
+
+    Backbone.trigger @.toString + 'hit', @
     @add(@deck.shift())
     @checkScore()
+
     return
 
   hasAce: -> @reduce (memo, card) ->
@@ -37,7 +46,13 @@ class window.Hand extends Backbone.Collection
     @maxScore()
 
   checkScore: ->
+
     if @maxScore() > 21
-        Backbone.trigger 'busted', @
-        console.log "YOU BUSTED"
+        if @isDealer
+          console.log "Hand transmitted busted"
+          Backbone.trigger 'dealerBust', @
+        else
+          console.log "Hand transmitted busted"
+          Backbone.trigger 'playerBust', @
+
     return

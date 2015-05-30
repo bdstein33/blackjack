@@ -51,3 +51,13 @@ img {
 .hand {
   overflow: auto;
 }
+
+
+.game-info-container {
+  margin-top: 20px;
+}
+
+.info-text{
+  margin: 0;
+}
+
