@@ -2,15 +2,14 @@ class window.Hand extends Backbone.Collection
   model: Card
 
   initialize: (array, @deck, @isDealer) ->
+    return
 
   hit: ->
 
     if @isDealer
       Backbone.trigger 'dealerHit'
-      console.log ('hand transmit dealerHit')
     else
       Backbone.trigger 'playerHit'
-      console.log ('hand transmit playerHit')
 
     Backbone.trigger @.toString + 'hit', @
     @add(@deck.shift())
@@ -49,10 +48,10 @@ class window.Hand extends Backbone.Collection
 
     if @maxScore() > 21
         if @isDealer
-          console.log "Hand transmitted busted"
           Backbone.trigger 'dealerBust', @
+          Backbone.trigger "win", @
         else
-          console.log "Hand transmitted busted"
           Backbone.trigger 'playerBust', @
+          Backbone.trigger "lose", @
 
     return

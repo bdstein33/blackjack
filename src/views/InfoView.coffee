@@ -4,11 +4,8 @@ class window.InfoView extends Backbone.View
 
   tagName: 'div'
 
-  # template: _.template '
-  #   <p><%= this.model.get("text") %></p>
-  # '
-
   initialize: ->
+    console.log @
     @listenTo Backbone, 'playerBust', @playerBustedRender
     @listenTo Backbone, 'dealerBust', @dealerBustedRender
     @listenTo Backbone, 'playerHit', @playerHitRender

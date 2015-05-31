@@ -23,7 +23,34 @@ body {
   border: none;
   background-color: white;
   border-radius: 5px;
+}
 
+.red-button {
+  width: 100px;
+  height: 40px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+}
+
+.stand-button-disabled {
+  background-color: rgb(234, 113, 113);
+  color: white;
+}
+
+.hit-button-disabled {
+  background-color: rgb(234, 113, 113);
+  color: white;
+}
+
+.stand-button-disabled:hover {
+  cursor: not-allowed;
+  background-color: rgb(234, 113, 113);
+}
+
+.hit-button-disabled:hover {
+  cursor: not-allowed;
+  background-color: rgb(234, 113, 113);
 }
 
 .button:hover {

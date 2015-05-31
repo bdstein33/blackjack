@@ -3,7 +3,7 @@
 class window.Game extends Backbone.Model
   initialize: ->
     @startNewGame()
-    @set 'info', info = new Info()
+    @set 'info', info = new Info(parent: @)
     @listenTo Backbone, 'playerBust dealerBust lose push win', @gameOver
     return
 
@@ -11,24 +11,28 @@ class window.Game extends Backbone.Model
     @set 'deck', deck = new Deck()
     @set 'playerHand', deck.dealPlayer(model: @model)
     @set 'dealerHand', deck.dealDealer(model: @model)
+    Backbone.trigger "newGame", @
     return
 
   stand: ->
     playerHand = @get 'playerHand'
     dealerHand = @get 'dealerHand'
     dealerHand.models[0].reveal()
-
     if dealerHand.score() > playerHand.score()
       Backbone.trigger "lose", @
-    else if dealerHand.score() < 17
-      dealerHand.hit()
-    else if dealerHand.score() == playerHand.score()
-      Backbone.trigger "push", @
     else
-      Backbone.trigger "win", @
+      while dealerHand.score() < 17
+        if dealerHand.score() < playerHand.score()
+          dealerHand.hit()
+
+      if dealerHand.score() <= 21
+        if dealerHand.score() == playerHand.score()
+          Backbone.trigger "push", @
+        else if dealerHand.score() < playerHand.score()
+          Backbone.trigger "win", @
+        else
+          Backbone.trigger "lose", @
 
   gameOver: ->
-    console.log "Game called .gameOver()"
-    @startNewGame()
     Backbone.trigger 'gameOver', @
-    console.log "Game transmitted gameOver"
+
